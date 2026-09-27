@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aranarth — Enter the Realm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+           ARANARTH — "SOVEREIGN" DESIGN  (index2.html)
+           Clean, light-forward, modern. Search "CONFIG" to customize.
+        ============================================================ */
+
+        :root {
+            --gold:        #B8901A;
+            --gold-mid:    #D4A820;
+            --gold-bright: #F5C430;
+            --gold-pale:   #FDF3D0;
+            --gold-glow:   rgba(212,168,32,0.45);
+            --tr:          180ms ease;
+        }
+
+        /* --- Light (default for Sovereign) --- */
+        :root,
+        [data-theme="light"] {
+            --bg0:    #FAFAF8;
+            --bg1:    #F3F1EA;
+            --bg2:    #FFFFFF;
+            --bgC:    #FFFFFF;
+            --t1:     #18150E;
+            --t2:     #5C5242;
+            --t3:     #9A8C78;
+            --bdr:    rgba(120,90,20,0.14);
+            --bdrH:   rgba(120,90,20,0.38);
+            --sh:     rgba(18,15,8,0.07);
+            --shM:    rgba(18,15,8,0.12);
+        }
+
+        /* --- Dark --- */
+        [data-theme="dark"] {
+            --bg0:    #0C0B09;
+            --bg1:    #131210;
+            --bg2:    #1C1B18;
+            --bgC:    rgba(28,27,24,0.78);
+            --t1:     #EAE2D0;
+            --t2:     #9A8E78;
+            --t3:     #5A5248;
+            --bdr:    rgba(200,160,30,0.14);
+            --bdrH:   rgba(200,160,30,0.4);
+            --sh:     rgba(0,0,0,0.45);
+            --shM:    rgba(0,0,0,0.65);
+        }
+
+        /* --- Auto follows OS --- */
+        @media (prefers-color-scheme: dark) {
+            [data-theme="auto"] {
+                --bg0:    #0C0B09;
+                --bg1:    #131210;
+                --bg2:    #1C1B18;
+                --bgC:    rgba(28,27,24,0.78);
+                --t1:     #EAE2D0;
+                --t2:     #9A8E78;
+                --t3:     #5A5248;
+                --bdr:    rgba(200,160,30,0.14);
+                --bdrH:   rgba(200,160,30,0.4);
+                --sh:     rgba(0,0,0,0.45);
+                --shM:    rgba(0,0,0,0.65);
+            }
+        }
+
+        /* ========================== RESET ========================== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg0);
+            color: var(--t1);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background var(--tr), color var(--tr);
+        }
+
+        /* ========================== NAV ============================ */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            height: 64px;
+            display: flex; align-items: center;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--bdr);
+            transition: background var(--tr), border-color var(--tr);
+        }
+        .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; padding: 0 2.5rem;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 0.65rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.15em;
+            color: var(--t1);
+            text-decoration: none;
+        }
+        .nav-logo-gem {
+            width: 28px; height: 28px;
+            position: relative;
+        }
+        .nav-links {
+            display: flex; align-items: center;
+            list-style: none; gap: 0;
+        }
+        .nav-links a {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: var(--t2);
+            text-decoration: none;
+            padding: 0.5rem 1.1rem;
+            position: relative;
+            transition: color var(--tr);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute; bottom: 0; left: 1.1rem; right: 1.1rem;
+            height: 2px;
+            background: var(--gold-mid);
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--t1); }
+        .nav-links a:hover::after { transform: scaleX(1); }
+
+        .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+        .theme-toggle {
+            display: flex; align-items: center;
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .tbtn {
+            width: 32px; height: 32px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--t3);
+            font-size: 0.82rem;
+            display: flex; align-items: center; justify-content: center;
+            transition: all var(--tr);
+        }
+        .tbtn.active {
+            background: var(--gold-mid);
+            color: #18150E;
+        }
+        .tbtn:hover:not(.active) {
+            background: var(--bg1);
+            color: var(--t1);
+        }
+
+        .nav-cta {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            color: var(--bg0);
+            background: var(--t1);
+            border: none;
+            padding: 0.5rem 1.3rem;
+            border-radius: 7px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--tr);
+        }
+        .nav-cta:hover {
+            background: var(--gold);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 760px) { .nav-links { display: none; } }
+
+        /* ========================== HERO =========================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center;
+            padding: 8rem 2.5rem 5rem;
+            overflow: hidden;
+        }
+
+        /* Large background text */
+        .hero-bg-text {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -52%);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: clamp(80px, 18vw, 220px);
+            letter-spacing: 0.12em;
+            color: var(--t1);
+            opacity: 0.03;
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        /* Decorative corner marks */
+        .corner {
+            position: absolute;
+            width: 40px; height: 40px;
+            opacity: 0.35;
+        }
+        .corner::before, .corner::after {
+            content: '';
+            position: absolute;
+            background: var(--gold);
+        }
+        .corner::before { width: 100%; height: 1px; top: 0; left: 0; }
+        .corner::after  { width: 1px; height: 100%; top: 0; left: 0; }
+        .corner-tl { top: 100px; left: 2.5rem; }
+        .corner-tr { top: 100px; right: 2.5rem; transform: scaleX(-1); }
+        .corner-bl { bottom: 4rem; left: 2.5rem; transform: scaleY(-1); }
+        .corner-br { bottom: 4rem; right: 2.5rem; transform: scale(-1); }
+
+        .hero-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        @media (max-width: 820px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-visual { display: none; }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+        .hero-eyebrow-line {
+            width: 28px; height: 1px;
+            background: var(--gold-mid);
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            line-height: 1.08;
+            color: var(--t1);
+            margin-bottom: 0.3rem;
+        }
+        .hero-title-accent {
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero-desc {
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            font-weight: 300;
+            color: var(--t2);
+            line-height: 1.9;
+            max-width: 460px;
+            margin: 1.6rem 0 2.4rem;
+        }
+
+        .hero-actions {
+            display: flex; gap: 0.75rem; flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-filled {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #18150E;
+            background: var(--gold-mid);
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        .btn-filled:hover {
+            background: var(--gold-bright);
+            box-shadow: 0 4px 24px var(--gold-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--t1);
+            background: transparent;
+            border: 1.5px solid var(--bdrH);
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .btn-ghost:hover {
+            border-color: var(--gold-mid);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .hero-meta {
+            display: flex; align-items: center; gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-stat {
+            display: flex; flex-direction: column; gap: 0.1rem;
+        }
+        .hero-stat-val {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1;
+        }
+        .hero-stat-lbl {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--t3);
+        }
+        .meta-sep {
+            width: 1px; height: 36px;
+            background: var(--bdr);
+        }
+
+        /* Hero Visual - animated geometric */
+        .hero-visual {
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .hex-wrap {
+            position: relative;
+            width: 420px; height: 420px;
+        }
+        .hex-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid var(--bdr);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: hexSpin 30s linear infinite;
+        }
+        .hex-ring-1 { width: 380px; height: 380px; border-color: rgba(200,160,30,0.18); }
+        .hex-ring-2 { width: 300px; height: 300px; border-color: rgba(200,160,30,0.12); animation-direction: reverse; animation-duration: 22s; }
+        .hex-ring-3 { width: 200px; height: 200px; border-color: rgba(200,160,30,0.22); animation-duration: 16s; }
+        @keyframes hexSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Orbiting dots */
+        .hex-ring-1::before {
+            content: '';
+            position: absolute; width: 6px; height: 6px;
+            background: var(--gold-mid);
+            border-radius: 50%;
+            top: -3px; left: calc(50% - 3px);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+        .hex-ring-2::after {
+            content: '';
+            position: absolute; width: 5px; height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            bottom: -2.5px; right: calc(50% - 2.5px);
+            box-shadow: 0 0 8px var(--gold-glow);
+        }
+
+        /* Center hex */
+        .hex-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px; height: 120px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hex-center-inner {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-align: center;
+            color: var(--gold);
+            text-transform: uppercase;
+            line-height: 1.6;
+        }
+
+        /* Floating element nodes */
+        .hex-node {
+            position: absolute;
+            width: 52px; height: 52px;
+            background: var(--bg2);
+            border: 1px solid var(--bdrH);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 16px var(--sh);
+            animation: nodeFloat 5s ease-in-out infinite;
+        }
+        .hex-node:nth-child(2) { top: 28px; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+        .hex-node:nth-child(3) { top: 50%; right: 18px; transform: translateY(-50%); animation-delay: -1.2s; }
+        .hex-node:nth-child(4) { bottom: 28px; left: 50%; transform: translateX(-50%); animation-delay: -2.5s; }
+        .hex-node:nth-child(5) { top: 50%; left: 18px; transform: translateY(-50%); animation-delay: -3.7s; }
+        @keyframes nodeFloat {
+            0%, 100% { box-shadow: 0 4px 16px var(--sh); }
+            50% { box-shadow: 0 8px 28px var(--shM), 0 0 16px var(--gold-glow); transform: translateX(-50%) translateY(-5px); }
+        }
+        .hex-node:nth-child(3) { animation-name: nodeFloatY; }
+        .hex-node:nth-child(5) { animation-name: nodeFloatY; animation-delay: -1.8s; }
+        @keyframes nodeFloatY {
+            0%, 100% { box-shadow: 0 4px 16px var(--sh); transform: translateY(-50%); }
+            50% { box-shadow: 0 8px 28px var(--shM), 0 0 16px var(--gold-glow); transform: translateY(calc(-50% - 5px)); }
+        }
+
+        /* ========================= SHARED ========================= */
+        section { position: relative; z-index: 1; padding: 5.5rem 2.5rem; }
+        .c { max-width: 1200px; margin: 0 auto; }
+
+        .sh {
+            display: flex; flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+        .sh.centered { align-items: center; text-align: center; }
+
+        .sh-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+        }
+        .sh-line { width: 20px; height: 1px; background: var(--gold-mid); }
+        .sh-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--t1);
+        }
+
+        /* ======================= FEATURES ========================= */
+        .feat-section { background: var(--bg1); }
+
+        .feat-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1px;
+            border: 1px solid var(--bdr);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bdr);
+        }
+        .fitem {
+            background: var(--bg2);
+            padding: 2rem 1.75rem;
+            display: flex; gap: 1.25rem;
+            transition: background var(--tr);
+        }
+        .fitem:hover { background: var(--bg0); }
+        .fitem-icon {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            width: 40px; text-align: center;
+        }
+        .fitem-body {}
+        .fitem-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--t1);
+            margin-bottom: 0.5rem;
+        }
+        .fitem-desc {
+            font-size: 0.83rem;
+            color: var(--t2);
+            line-height: 1.75;
+        }
+
+        /* ======================= BANNER STRIP ===================== */
+        .banner-strip {
+            background: var(--t1);
+            color: var(--bg0);
+            padding: 0.85rem 2.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .banner-scroll {
+            display: flex; gap: 3rem;
+            animation: bannerMove 22s linear infinite;
+            white-space: nowrap;
+            width: max-content;
+        }
+        .banner-item {
+            font-family: 'Cinzel', serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            display: flex; align-items: center; gap: 0.6rem;
+            color: inherit; opacity: 0.75;
+        }
+        .banner-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold-mid); opacity: 1; }
+        @keyframes bannerMove { to { transform: translateX(-50%); } }
+
+        /* ==================== SERVER INFO ========================= */
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+        @media (max-width: 780px) { .info-section { grid-template-columns: 1fr; } }
+
+        .info-half {
+            padding: 5.5rem 3rem;
+        }
+        .info-half:first-child {
+            background: var(--bg2);
+            border-right: 1px solid var(--bdr);
+        }
+        .info-half:last-child {
+            background: var(--bg1);
+        }
+
+        .status-row {
+            display: flex; align-items: center; gap: 0.55rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: #3dba6a;
+        }
+        .sdot { width: 8px; height: 8px; border-radius: 50%; background: #3dba6a; box-shadow: 0 0 7px rgba(61,186,106,0.7); animation: pulse 2s infinite; }
+        .sdot.off { background: #e05252; box-shadow: 0 0 7px rgba(224,82,82,0.7); }
+        @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.35);opacity:0.7} }
+
+        .big-stat {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--t1);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .big-stat-lbl {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--t3);
+            margin-bottom: 2.5rem;
+        }
+
+        .info-ip {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.85rem 1.25rem;
+            background: var(--bg0);
+            border: 1.5px solid var(--bdrH);
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            transition: all var(--tr);
+        }
+        .info-ip:hover { border-color: var(--gold-mid); box-shadow: 0 0 0 3px var(--gold-pale); }
+        [data-theme="dark"] .info-ip:hover { box-shadow: 0 0 0 3px rgba(200,160,30,0.1); }
+        .info-ip-text {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--t1);
+            flex: 1;
+        }
+        .info-ip-copy {
+            font-size: 0.7rem;
+            color: var(--t3);
+            letter-spacing: 0.06em;
+        }
+        .info-ip-hint {
+            font-size: 0.68rem; color: var(--t3); padding-left: 0.1rem;
+        }
+
+        .info-features {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.85rem;
+        }
+        .info-feat {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--t2);
+            line-height: 1.6;
+        }
+        .info-feat-icon {
+            flex-shrink: 0;
+            width: 22px; height: 22px;
+            background: var(--gold-pale);
+            border-radius: 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            margin-top: 0.1rem;
+        }
+        [data-theme="dark"] .info-feat-icon { background: rgba(200,160,30,0.12); }
+
+        /* ====================== DISCORD =========================== */
+        .discord-sec {
+            background: var(--bg0);
+        }
+        .discord-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: start;
+        }
+        @media (max-width: 800px) { .discord-inner { grid-template-columns: 1fr; } }
+        .discord-text h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 700;
+            color: var(--t1);
+            margin: 0.75rem 0 1rem;
+        }
+        .discord-text p {
+            font-size: 0.88rem;
+            color: var(--t2);
+            line-height: 1.85;
+            max-width: 440px;
+            margin-bottom: 1.75rem;
+        }
+        .discord-widget-wrap {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--bdr);
+            box-shadow: 0 8px 32px var(--sh);
+            flex-shrink: 0;
+        }
+
+        /* ====================== STORE SECTION ===================== */
+        .store-sec { background: var(--bg1); }
+        .store-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 700px) { .store-grid { grid-template-columns: 1fr; } }
+
+        .store-main {
+            background: var(--t1);
+            color: var(--bg0);
+            border-radius: 14px;
+            padding: 2.5rem;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            min-height: 260px;
+        }
+        .store-main-label {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 0.6rem;
+        }
+        .store-main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: inherit;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.75rem;
+        }
+        .store-main-desc {
+            font-size: 0.85rem;
+            color: var(--t3);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+        [data-theme="dark"] .store-main .store-main-desc { color: var(--t2); }
+        .store-main .btn-filled {
+            background: var(--gold-mid);
+            align-self: flex-start;
+        }
+
+        .store-side { display: flex; flex-direction: column; gap: 1.5rem; }
+        .store-card {
+            background: var(--bg2);
+            border: 1px solid var(--bdr);
+            border-radius: 12px;
+            padding: 1.5rem;
+            flex: 1;
+            transition: border-color var(--tr), box-shadow var(--tr);
+        }
+        .store-card:hover {
+            border-color: var(--bdrH);
+            box-shadow: 0 4px 20px var(--sh);
+        }
+        .store-card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; display: block; }
+        .store-card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--t1);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.35rem;
+        }
+        .store-card-desc { font-size: 0.8rem; color: var(--t2); line-height: 1.65; }
+
+        /* ========================= FOOTER ========================== */
+        footer {
+            background: var(--t1);
+            color: var(--bg0);
+            padding: 3.5rem 2.5rem 2rem;
+        }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        .footer-top {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; flex-wrap: wrap; gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--gold-mid);
+            margin-bottom: 0.4rem;
+        }
+        .footer-brand-sub { font-size: 0.72rem; color: var(--t3); }
+        [data-theme="dark"] .footer-brand-sub { color: var(--t2); }
+        .footer-links {
+            display: flex; flex-direction: column; gap: 0.6rem;
+        }
+        .footer-links-title {
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--t3);
+            margin-bottom: 0.25rem;
+        }
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--bg1);
+            text-decoration: none;
+            transition: color var(--tr);
+        }
+        .footer-links a:hover { color: var(--gold-mid); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.5rem;
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .footer-copy { font-size: 0.72rem; color: var(--t3); }
+
+        /* ========================== TOAST ========================= */
+        .toast {
+            position: fixed;
+            bottom: 2rem; left: 50%;
+            transform: translateX(-50%) translateY(1.5rem);
+            background: var(--t1);
+            color: var(--gold-mid);
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            padding: 0.6rem 1.6rem;
+            border-radius: 7px;
+            opacity: 0; pointer-events: none;
+            transition: all 0.25s ease;
+            z-index: 9999;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<!-- ========================= NAV ========================== -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">
+            <svg class="nav-logo-gem" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="14,2 26,10 26,20 14,26 2,20 2,10" stroke="#C9A227" stroke-width="1.5" fill="none"/>
+                <polygon points="14,6 22,11 22,19 14,23 6,19 6,11" stroke="#C9A227" stroke-width="0.6" fill="rgba(201,162,39,0.06)"/>
+                <line x1="14" y1="2" x2="14" y2="6" stroke="#C9A227" stroke-width="1"/>
+                <line x1="14" y1="23" x2="14" y2="26" stroke="#C9A227" stroke-width="1"/>
+            </svg>
+            ARANARTH
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">World</a></li>
+            <li><a href="#server">Server</a></li>
+            <li><a href="#discord">Discord</a></li>
+            <li><a href="#store">Store</a></li>
+        </ul>
+        <div class="nav-right">
+            <div class="theme-toggle" title="Toggle theme">
+                <button class="tbtn" data-mode="light" title="Light">&#9728;</button>
+                <button class="tbtn active" data-mode="auto" title="Auto">&#9680;</button>
+                <button class="tbtn" data-mode="dark" title="Dark">&#9790;</button>
+            </div>
+            <!-- CONFIG: Replace with your store URL -->
+            <a href="https://aranarth.craftingstore.net" class="nav-cta" target="_blank">Join &rarr;</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ========================= HERO ========================= -->
+<section class="hero" id="home">
+    <div class="hero-bg-text" aria-hidden="true">ARANARTH</div>
+
+    <div class="corner corner-tl" aria-hidden="true"></div>
+    <div class="corner corner-tr" aria-hidden="true"></div>
+    <div class="corner corner-bl" aria-hidden="true"></div>
+    <div class="corner corner-br" aria-hidden="true"></div>
+
+    <div class="hero-inner c">
+        <!-- Left: Content -->
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <div class="hero-eyebrow-line"></div>
+                Minecraft · Java 1.21
+            </div>
+            <h1 class="hero-title">
+                Enter the<br>
+                <span class="hero-title-accent">World of</span>
+                Aranarth
+            </h1>
+            <p class="hero-desc">A fantasy Minecraft server built around elemental bending, player-driven dominions, and an evolving world shaped by those who inhabit it.</p>
+
+            <div class="hero-actions">
+                <!-- CONFIG: Replace href with your server's copy IP page or #server anchor -->
+                <a href="#server" class="btn-filled">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 8.5H9v2.5a1 1 0 0 1-2 0V8.5H4.5a1 1 0 0 1 0-2H7V4a1 1 0 0 1 2 0v2.5h2.5a1 1 0 0 1 0 2z"/></svg>
+                    Start Playing
+                </a>
+                <a href="#features" class="btn-ghost">Learn More</a>
+            </div>
+
+            <div class="hero-meta">
+                <div class="hero-stat">
+                    <div class="hero-stat-val" id="h-online">-</div>
+                    <div class="hero-stat-lbl">Online Now</div>
+                </div>
+                <div class="meta-sep"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-val">Java</div>
+                    <div class="hero-stat-lbl">Edition</div>
+                </div>
+                <div class="meta-sep"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-val">1.21</div>
+                    <div class="hero-stat-lbl">Version</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="hero-visual" aria-hidden="true">
+            <div class="hex-wrap">
+                <div class="hex-ring hex-ring-1"></div>
+                <div class="hex-ring hex-ring-2"></div>
+                <div class="hex-ring hex-ring-3"></div>
+
+                <div class="hex-node">&#127754;</div>
+                <div class="hex-node">&#128293;</div>
+                <div class="hex-node">&#127956;</div>
+                <div class="hex-node">&#127788;</div>
+
+                <div class="hex-center">
+                    <div class="hex-center-inner">
+                        <svg viewBox="0 0 80 80" width="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" stroke="#C9A227" stroke-width="1.5"/>
+                            <polygon points="40,16 62,28 62,52 40,64 18,52 18,28" stroke="#C9A227" stroke-width="0.8" opacity="0.5"/>
+                            <circle cx="40" cy="40" r="6" fill="#C9A227" opacity="0.8"/>
+                            <line x1="40" y1="4" x2="40" y2="16" stroke="#C9A227" stroke-width="0.8"/>
+                            <line x1="40" y1="64" x2="40" y2="76" stroke="#C9A227" stroke-width="0.8"/>
+                            <line x1="8" y1="40" x2="18" y2="40" stroke="#C9A227" stroke-width="0.8"/>
+                            <line x1="62" y1="40" x2="72" y2="40" stroke="#C9A227" stroke-width="0.8"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== BANNER STRIP =================== -->
+<div class="banner-strip" aria-hidden="true">
+    <div class="banner-scroll">
+        <span class="banner-item"><span class="banner-dot"></span>Elemental Bending</span>
+        <span class="banner-item"><span class="banner-dot"></span>Dominion Warfare</span>
+        <span class="banner-item"><span class="banner-dot"></span>Player Economy</span>
+        <span class="banner-item"><span class="banner-dot"></span>Daily Quests</span>
+        <span class="banner-item"><span class="banner-dot"></span>Elemental Mounts</span>
+        <span class="banner-item"><span class="banner-dot"></span>Custom World</span>
+        <span class="banner-item"><span class="banner-dot"></span>Shop Islands</span>
+        <span class="banner-item"><span class="banner-dot"></span>Player Jobs</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="banner-item"><span class="banner-dot"></span>Elemental Bending</span>
+        <span class="banner-item"><span class="banner-dot"></span>Dominion Warfare</span>
+        <span class="banner-item"><span class="banner-dot"></span>Player Economy</span>
+        <span class="banner-item"><span class="banner-dot"></span>Daily Quests</span>
+        <span class="banner-item"><span class="banner-dot"></span>Elemental Mounts</span>
+        <span class="banner-item"><span class="banner-dot"></span>Custom World</span>
+        <span class="banner-item"><span class="banner-dot"></span>Shop Islands</span>
+        <span class="banner-item"><span class="banner-dot"></span>Player Jobs</span>
+    </div>
+</div>
+
+<!-- ====================== FEATURES ======================= -->
+<section id="features" class="feat-section">
+    <div class="c">
+        <div class="sh centered" style="margin-bottom:2.5rem;">
+            <div class="sh-eyebrow"><div class="sh-line"></div>What You Can Do<div class="sh-line"></div></div>
+            <h2 class="sh-title">A Living, Breathing World</h2>
+        </div>
+        <div class="feat-list">
+            <div class="fitem">
+                <div class="fitem-icon">&#127754;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Elemental Bending</div>
+                    <p class="fitem-desc">Master Water, Earth, Fire, or Air — and unlock sub-elements through progression. Your bending style defines your role in the world.</p>
+                </div>
+            </div>
+            <div class="fitem">
+                <div class="fitem-icon">&#9876;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Dominions &amp; Outposts</div>
+                    <p class="fitem-desc">Claim territory, build outposts, and engage in territorial warfare. Defend your borders with purchasable guards and fortifications.</p>
+                </div>
+            </div>
+            <div class="fitem">
+                <div class="fitem-icon">&#128220;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Rank &amp; Quest System</div>
+                    <p class="fitem-desc">Progress through Aranarth's ranks via daily and weekly quests. Each rank unlocks new abilities, regions, and privileges.</p>
+                </div>
+            </div>
+            <div class="fitem">
+                <div class="fitem-icon">&#127978;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Shop Islands &amp; Jobs</div>
+                    <p class="fitem-desc">Open your own player shop island and take up one of nine Jobs - from Builder to Farmer to Alchemist - to build your wealth.</p>
+                </div>
+            </div>
+            <div class="fitem">
+                <div class="fitem-icon">&#128009;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Elemental Mounts</div>
+                    <p class="fitem-desc">Bond with mounts tied to your element. Level them through adventure and unlock unique abilities and bonuses on the battlefield.</p>
+                </div>
+            </div>
+            <div class="fitem">
+                <div class="fitem-icon">&#127788;</div>
+                <div class="fitem-body">
+                    <div class="fitem-title">Custom Seasons &amp; Calendar</div>
+                    <p class="fitem-desc">Aranarth runs on its own calendar - with longer summers, shorter winters, and world events tied to the passage of time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =================== SERVER INFO SPLIT ================= -->
+<section id="server" style="padding:0;">
+    <div class="info-section">
+        <!-- Left: Status / IP -->
+        <div class="info-half">
+            <div class="sh" style="margin-bottom:2rem;">
+                <div class="sh-eyebrow"><div class="sh-line"></div>Server Status</div>
+                <h2 class="sh-title" style="font-size:1.6rem;">Join Aranarth</h2>
+            </div>
+
+            <div class="status-row">
+                <div class="sdot" id="sdot"></div>
+                <span id="slabel">Checking...</span>
+            </div>
+            <div class="big-stat" id="big-online">-</div>
+            <div class="big-stat-lbl">Players Online</div>
+
+            <!-- CONFIG: Replace with your server IP -->
+            <div class="info-ip" onclick="copyIP()" title="Click to copy">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.4"/>
+                    <circle cx="5" cy="8" r="1" fill="currentColor"/>
+                    <circle cx="8" cy="8" r="1" fill="currentColor"/>
+                    <circle cx="11" cy="8" r="1" fill="currentColor"/>
+                </svg>
+                <span class="info-ip-text" id="ip-display">play.aranarth.net</span>
+                <span class="info-ip-copy">copy</span>
+            </div>
+            <div class="info-ip-hint">Java Edition 1.21</div>
+        </div>
+
+        <!-- Right: Feature highlights -->
+        <div class="info-half">
+            <div class="sh" style="margin-bottom:2rem;">
+                <div class="sh-eyebrow"><div class="sh-line"></div>Why Play Here</div>
+                <h2 class="sh-title" style="font-size:1.6rem;">Built Different</h2>
+            </div>
+            <ul class="info-features">
+                <li class="info-feat">
+                    <div class="info-feat-icon">&#9733;</div>
+                    <span>Deep, original progression system built on top of ProjectKorra bending with custom sub-elements and abilities.</span>
+                </li>
+                <li class="info-feat">
+                    <div class="info-feat-icon">&#128197;</div>
+                    <span>A living world with its own seasons, calendar, and lore - not a template server.</span>
+                </li>
+                <li class="info-feat">
+                    <div class="info-feat-icon">&#128101;</div>
+                    <span>Active development and a community that shapes the direction of the server.</span>
+                </li>
+                <li class="info-feat">
+                    <div class="info-feat-icon">&#127749;</div>
+                    <span>Cross-server play between Survival and SMP with shared economy and progression.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== DISCORD ======================== -->
+<section id="discord" class="discord-sec">
+    <div class="c">
+        <div class="discord-inner">
+            <div class="discord-text">
+                <div class="sh-eyebrow"><div class="sh-line"></div>Community</div>
+                <h2>Join the Discord</h2>
+                <p>Stay connected with the Aranarth community. Get server updates, find players to play with, submit suggestions, and get support from staff and other players.</p>
+                <!-- CONFIG: Replace with your Discord invite link -->
+                <a href="https://discord.gg/YOUR_INVITE" class="btn-filled" target="_blank">
+                    <svg width="18" height="14" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true">
+                        <path d="M13.545 1.044A13.23 13.23 0 0 0 10.27 0c-.142.252-.308.591-.422.859a12.23 12.23 0 0 0-3.695 0C6.04.591 5.87.252 5.727 0A13.192 13.192 0 0 0 2.45 1.047C.352 4.14-.216 7.155.068 10.128A13.312 13.312 0 0 0 4.12 12c.323-.437.61-.9.857-1.388a8.674 8.674 0 0 1-1.35-.65c.114-.083.224-.169.33-.258a9.494 9.494 0 0 0 8.088 0c.107.09.218.176.33.258-.432.256-.888.476-1.353.651.247.489.534.952.858 1.387a13.29 13.29 0 0 0 4.054-1.872c.333-3.432-.568-6.418-2.388-9.084ZM5.34 8.293c-.796 0-1.445-.73-1.445-1.626 0-.896.636-1.628 1.445-1.628.81 0 1.459.732 1.445 1.628.001.897-.635 1.626-1.445 1.626Zm5.32 0c-.797 0-1.446-.73-1.446-1.626 0-.896.636-1.628 1.446-1.628.81 0 1.458.732 1.444 1.628 0 .897-.634 1.626-1.444 1.626Z"/>
+                    </svg>
+                    Join our Discord
+                </a>
+            </div>
+            <!-- CONFIG: Replace YOUR_DISCORD_SERVER_ID with your actual Discord server ID -->
+            <div class="discord-widget-wrap">
+                <iframe
+                    src="https://discord.com/widget?id=YOUR_DISCORD_SERVER_ID&theme=dark"
+                    width="330" height="480"
+                    allowtransparency="true"
+                    frameborder="0"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                    title="Aranarth Discord Widget"
+                ></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======================== STORE ========================= -->
+<section id="store" class="store-sec">
+    <div class="c">
+        <div class="sh" style="margin-bottom:2rem;">
+            <div class="sh-eyebrow"><div class="sh-line"></div>Support Aranarth</div>
+            <h2 class="sh-title">Server Store</h2>
+        </div>
+        <div class="store-grid">
+            <div class="store-main">
+                <div>
+                    <div class="store-main-label">Aranarth Store</div>
+                    <div class="store-main-title">Ranks, Perks &amp; Cosmetics</div>
+                    <div class="store-main-desc">Support the server and unlock exclusive ranks, cosmetics, and abilities. Every purchase goes directly toward keeping Aranarth running and growing.</div>
+                </div>
+                <!-- CONFIG: Replace href with your store URL -->
+                <a href="https://aranarth.craftingstore.net" class="btn-filled" target="_blank">Browse the Store &rarr;</a>
+            </div>
+            <div class="store-side">
+                <div class="store-card">
+                    <span class="store-card-icon">&#127381;</span>
+                    <div class="store-card-title">Ranks</div>
+                    <p class="store-card-desc">Unlock elevated permissions, exclusive commands, and cosmetic titles that set you apart in the world.</p>
+                </div>
+                <div class="store-card">
+                    <span class="store-card-icon">&#10024;</span>
+                    <div class="store-card-title">Cosmetics &amp; Extras</div>
+                    <p class="store-card-desc">Particle effects, custom items, kits, and more - all purely cosmetic or quality-of-life additions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ====================== FOOTER ========================= -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div>
+                <div class="footer-brand">ARANARTH</div>
+                <div class="footer-brand-sub">A World of Magic and Adventure</div>
+            </div>
+            <div style="display:flex; gap:4rem; flex-wrap:wrap;">
+                <div class="footer-links">
+                    <div class="footer-links-title">Navigate</div>
+                    <a href="#features">The World</a>
+                    <a href="#server">Server Info</a>
+                    <a href="#discord">Discord</a>
+                    <a href="#store">Store</a>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-title">Resources</div>
+                    <!-- CONFIG: Add your actual links -->
+                    <a href="#">Server Rules</a>
+                    <a href="#">Wiki</a>
+                    <a href="#">Changelog</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">&copy; 2024 Aranarth &mdash; Not affiliated with Mojang Studios.</span>
+            <!-- CONFIG: Replace with your server IP -->
+            <span class="footer-copy">play.aranarth.net</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ============================================================
+    // CONFIG - Update these values
+    // ============================================================
+    const CFG = {
+        serverIP: 'play.aranarth.net',
+        storeURL: 'https://aranarth.craftingstore.net',
+        discordInvite: 'https://discord.gg/YOUR_INVITE',
+        discordID: 'YOUR_DISCORD_SERVER_ID',
+    };
+
+    // -------------------- Theme Management ----------------------
+    function getCookie(n) {
+        const m = document.cookie.match('(?:^|; )' + n + '=([^;]*)');
+        return m ? decodeURIComponent(m[1]) : null;
+    }
+    function setCookie(n, v, days) {
+        const exp = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = n + '=' + encodeURIComponent(v) + '; expires=' + exp + '; path=/; SameSite=Lax';
+    }
+    function applyTheme(mode) {
+        document.documentElement.setAttribute('data-theme', mode);
+        setCookie('theme', mode, 365);
+        document.querySelectorAll('.tbtn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    }
+    const savedTheme = getCookie('theme') || 'auto';
+    applyTheme(savedTheme);
+    document.querySelectorAll('.tbtn').forEach(b => b.addEventListener('click', () => applyTheme(b.dataset.mode)));
+
+    // -------------------- Server Status -------------------------
+    (async function () {
+        try {
+            const res = await fetch('https://api.mcsrvstat.us/3/' + CFG.serverIP);
+            if (!res.ok) return;
+            const d = await res.json();
+            const dot = document.getElementById('sdot');
+            const lbl = document.getElementById('slabel');
+            const hOnline = document.getElementById('h-online');
+            const bigOnline = document.getElementById('big-online');
+
+            if (d.online) {
+                const n = d.players?.online ?? 0;
+                lbl.textContent = 'Online';
+                hOnline.textContent = n;
+                bigOnline.textContent = n;
+            } else {
+                dot.classList.add('off');
+                lbl.textContent = 'Offline';
+                hOnline.textContent = '0';
+                bigOnline.textContent = '0';
+            }
+        } catch (_) {
+            document.getElementById('slabel').textContent = 'Unknown';
+        }
+    })();
+
+    // -------------------- Copy IP --------------------------------
+    function copyIP() {
+        navigator.clipboard.writeText(CFG.serverIP).then(() => {
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2200);
+        });
+    }
+</script>
+</body>
+</html>
