@@ -428,7 +428,7 @@
             border: 1px solid var(--bdr);
             border-radius: 8px;
             padding: 1.5rem 1.25rem;
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             backdrop-filter: blur(10px);
             transition: border-color var(--tr);
         }
@@ -440,15 +440,17 @@
             color: var(--gold);
             line-height: 1;
             margin-bottom: 0.35rem;
+            text-align: center;
         }
         .scard-lbl {
             font-size: 0.68rem;
             letter-spacing: 0.13em;
             text-transform: uppercase;
             color: var(--t3);
+            text-align: center;
         }
         .online-row {
-            display: inline-flex; align-items: center; gap: 0.4rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.4rem;
             font-size: 0.72rem;
             color: var(--green-on);
             margin-bottom: 0.4rem;
@@ -657,6 +659,7 @@
         <li><a href="#features">The World</a></li>
         <li><a href="#discord">Community</a></li>
         <li><a href="#store">Store</a></li>
+        <li><a href="https://map.aranarth.net" target="_blank">Map</a></li>
     </ul>
     <div class="nav-right">
         <div class="theme-toggle" title="Toggle theme">
@@ -705,11 +708,11 @@
     </div>
 
     <h1 class="hero-title">ARANARTH</h1>
-    <p class="hero-sub">A Realm of Magic &amp; Legend</p>
-    <p class="hero-tagline">Forge your destiny through elemental bending, ancient dominions, and a world shaped by its players.</p>
+    <p class="hero-sub">A Fantasy Minecraft Server</p>
+    <p class="hero-tagline">Bending, dominions, quests, and a world that's been built from scratch. Java Edition 1.21.</p>
 
     <div class="hero-actions">
-        <a href="#features" class="btn-gold">Explore the World</a>
+        <a href="#features" class="btn-gold">See What's Here</a>
         <!-- CONFIG: Replace with your store URL -->
         <a href="https://aranarth.craftingstore.net" class="btn-outline" target="_blank">Visit the Store</a>
     </div>
@@ -760,40 +763,40 @@
 <section id="features">
     <div class="c">
         <div class="sh">
-            <div class="sh-label">What Awaits You</div>
-            <h2 class="sh-title">A World Unlike Any Other</h2>
+            <div class="sh-label">Features</div>
+            <h2 class="sh-title">What's on the Server</h2>
             <div class="sh-rule"></div>
         </div>
         <div class="feat-grid">
             <div class="fcard">
                 <span class="fcard-icon">&#127754;</span>
                 <div class="fcard-title">Elemental Bending</div>
-                <p class="fcard-desc">Master Water, Earth, Fire, or Air — and unlock rare sub-elements. Your bending grows with you through a deep skill and progression system unique to Aranarth.</p>
+                <p class="fcard-desc">Choose Water, Earth, Fire, or Air and unlock sub-elements as you progress. Abilities are custom-built on top of ProjectKorra and unique to Aranarth.</p>
             </div>
             <div class="fcard">
                 <span class="fcard-icon">&#9876;</span>
-                <div class="fcard-title">Dominions &amp; Conquest</div>
-                <p class="fcard-desc">Claim land, build your dominion, and command outposts. Engage in territorial warfare, station defenders, and forge alliances to grow your power.</p>
+                <div class="fcard-title">Dominions &amp; Outposts</div>
+                <p class="fcard-desc">Claim and manage land through the dominion system. Build outposts to expand your territory, station guard defenders, and fight over borders with other players.</p>
             </div>
             <div class="fcard">
                 <span class="fcard-icon">&#128220;</span>
                 <div class="fcard-title">Ranks &amp; Quests</div>
-                <p class="fcard-desc">Rise through Aranarth's rank system with daily and weekly quests. New abilities, regions, and privileges unlock as you prove your worth.</p>
+                <p class="fcard-desc">Progress through ranks by completing daily and weekly quests. Higher ranks unlock new abilities, areas, and server features.</p>
             </div>
             <div class="fcard">
                 <span class="fcard-icon">&#127978;</span>
-                <div class="fcard-title">Player Economy</div>
-                <p class="fcard-desc">Open your own shop island, trade with other players, and take on Jobs to earn currency and master professional skills across nine vocations.</p>
+                <div class="fcard-title">Economy &amp; Jobs</div>
+                <p class="fcard-desc">Run a shop on your own island, take on one of nine Jobs, and trade with other players. The economy is entirely player-driven.</p>
             </div>
             <div class="fcard">
                 <span class="fcard-icon">&#128009;</span>
                 <div class="fcard-title">Elemental Mounts</div>
-                <p class="fcard-desc">Bond with mounts tied to your element. Level them through adventure and unlock unique abilities that complement your bending on the battlefield.</p>
+                <p class="fcard-desc">Unlock a mount tied to your element, level it up over time, and gain passive bonuses that complement your bending style.</p>
             </div>
             <div class="fcard">
-                <span class="fcard-icon">&#128737;</span>
-                <div class="fcard-title">Custom Lore &amp; World</div>
-                <p class="fcard-desc">Explore a hand-crafted world with its own calendar, seasons, history, and cultures - all built to deepen your immersion in the realm of Aranarth.</p>
+                <span class="fcard-icon">&#128197;</span>
+                <div class="fcard-title">Custom World &amp; Calendar</div>
+                <p class="fcard-desc">Aranarth runs on its own calendar with seasons that affect the world. The map, lore, and events are all built specifically for this server.</p>
             </div>
         </div>
     </div>
@@ -805,8 +808,8 @@
         <div class="discord-grid">
             <div class="discord-text">
                 <div class="sh-label">Community</div>
-                <h2>Join the Community</h2>
-                <p>Connect with fellow players, get support, stay ahead of server news and events, and have your voice heard in shaping Aranarth's future. Our Discord is the heart of it all.</p>
+                <h2>Join the Discord</h2>
+                <p>The Discord is where most server activity happens outside of the game - announcements, updates, support, and general chat. Come say hi.</p>
                 <!-- CONFIG: Replace with your Discord invite -->
                 <a href="https://discord.gg/YOUR_INVITE" class="btn-gold" target="_blank">
                     <svg width="18" height="14" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true">
@@ -834,9 +837,9 @@
 <section id="store">
     <div class="c">
         <div class="store-banner">
-            <div class="sh-label">Support the Server</div>
-            <h2>Visit the Aranarth Store</h2>
-            <p>Browse ranks, cosmetics, and exclusive perks. Every purchase directly supports server development and keeps Aranarth growing for everyone.</p>
+            <div class="sh-label">Store</div>
+            <h2>Aranarth Store</h2>
+            <p>Ranks, cosmetics, and a few extras. Purchases help keep the server running.</p>
             <!-- CONFIG: Replace with your store URL -->
             <a href="https://aranarth.craftingstore.net" class="btn-gold" target="_blank">Browse the Store &rarr;</a>
         </div>
