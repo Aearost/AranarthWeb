@@ -39,6 +39,8 @@
             --bdr:   rgba(201,162,39,0.14);
             --bdrH:  rgba(201,162,39,0.42);
             --sh:    rgba(0,0,0,0.55);
+            --navBg: rgba(8,8,9,0.65);
+            --navHover: var(--gold);
         }
 
         /* --- Light override --- */
@@ -53,6 +55,8 @@
             --bdr:   rgba(140,95,15,0.18);
             --bdrH:  rgba(140,95,15,0.48);
             --sh:    rgba(0,0,0,0.08);
+            --navBg: rgba(249,247,241,0.9);
+            --navHover: var(--gold-muted);
         }
 
         /* --- Auto follows OS --- */
@@ -68,6 +72,8 @@
                 --bdr:   rgba(140,95,15,0.18);
                 --bdrH:  rgba(140,95,15,0.48);
                 --sh:    rgba(0,0,0,0.08);
+                --navBg: rgba(249,247,241,0.9);
+                --navHover: var(--gold-muted);
             }
         }
 
@@ -106,44 +112,45 @@
             height: 60px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(8,8,9,0.65);
+            background: var(--navBg);
             border-bottom: 1px solid var(--bdr);
             transition: background var(--tr), border-color var(--tr);
         }
-        [data-theme="light"] nav,
-        @media (prefers-color-scheme: light) { [data-theme="auto"] nav { background: rgba(249,247,241,0.88); } }
 
         .nav-logo {
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.15em;
-            color: var(--gold);
-            text-decoration: none;
-            text-shadow: 0 0 24px var(--gold-glow);
-            display: flex; align-items: center; gap: 0.6rem;
+            display: flex; align-items: center;
+            transition: transform 0.2s ease, filter 0.2s ease;
         }
-        [data-theme="light"] .nav-logo { text-shadow: none; }
+        .nav-logo img { height: 34px; width: 34px; object-fit: contain; }
+        .nav-logo:hover { transform: scale(1.1); filter: drop-shadow(0 0 10px var(--gold-glow)); }
 
         .nav-logo-icon { font-size: 1.1rem; }
 
         .nav-links {
-            display: flex; align-items: center; gap: 0.1rem;
+            position: absolute; left: 50%;
+            transform: translateX(-50%);
+            display: flex; align-items: center; gap: 0.4rem;
             list-style: none;
         }
         .nav-links a {
+            display: inline-block;
             font-family: 'Cinzel', serif;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--t2);
             text-decoration: none;
-            padding: 0.45rem 0.9rem;
-            border-radius: 5px;
-            transition: color var(--tr), background var(--tr);
+            padding: 0.5rem 1.1rem;
+            border-radius: 6px;
+            transition: color var(--tr), background var(--tr), transform 0.2s ease, text-shadow 0.2s ease;
         }
-        .nav-links a:hover { color: var(--gold); background: rgba(201,162,39,0.07); }
+        .nav-links a:hover {
+            color: var(--navHover);
+            background: rgba(201,162,39,0.1);
+            transform: scale(1.12);
+            text-shadow: 0 0 14px var(--gold-glow);
+        }
 
         .nav-right { display: flex; align-items: center; gap: 0.75rem; }
 
@@ -169,38 +176,18 @@
         .tbtn.active { background: var(--gold); color: #080809; }
         .tbtn:hover:not(.active) { color: var(--gold); }
 
-        .nav-store-btn {
-            font-family: 'Cinzel', serif;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.13em;
-            text-transform: uppercase;
-            color: #080809;
-            background: var(--gold);
-            border: none;
-            padding: 0.48rem 1.1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all var(--tr);
-            white-space: nowrap;
-        }
-        .nav-store-btn:hover {
-            background: var(--gold-bright);
-            box-shadow: 0 0 22px rgba(201,162,39,0.45);
-            transform: translateY(-1px);
-        }
 
-        @media (max-width: 760px) { .nav-links { display: none; } }
+        @media (max-width: 860px) { .nav-links { display: none; } }
 
         /* ========================= HERO ============================ */
         .hero {
             position: relative;
             min-height: 100vh;
+            min-height: 100svh;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             text-align: center;
-            padding: 9rem 2rem 5rem;
+            padding: calc(60px + 6rem) 2rem 6rem;
             z-index: 1;
             overflow: hidden;
         }
@@ -296,7 +283,6 @@
         .hero-actions {
             display: flex; gap: 1rem; flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 2.5rem;
         }
 
         .btn-gold {
@@ -341,23 +327,6 @@
             background: rgba(201,162,39,0.08);
             transform: translateY(-2px);
         }
-
-        .ip-chip {
-            display: inline-flex; align-items: center; gap: 0.55rem;
-            font-family: 'Cinzel', serif;
-            font-size: 0.78rem;
-            letter-spacing: 0.1em;
-            color: var(--t3);
-            background: var(--bg2);
-            border: 1px solid var(--bdr);
-            padding: 0.55rem 1.2rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all var(--tr);
-            user-select: none;
-        }
-        .ip-chip:hover { border-color: var(--gold-muted); color: var(--gold); }
-        .ip-chip-hint { font-size: 0.62rem; opacity: 0.6; }
 
         .scroll-cue {
             position: absolute; bottom: 2rem; left: 50%;
@@ -469,46 +438,47 @@
         }
 
         /* ======================= FEATURES ========================== */
-        .feat-grid {
+        .feat-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.4rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 4rem;
+            max-width: 1040px;
+            margin: 0 auto;
         }
-        .fcard {
-            background: var(--bgC);
-            border: 1px solid var(--bdr);
-            border-radius: 10px;
-            padding: 2rem 1.75rem;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        @media (max-width: 820px) { .feat-list { grid-template-columns: minmax(0, 1fr); } }
+        .frow {
+            display: grid;
+            grid-template-columns: 52px minmax(0, 1fr);
+            gap: 1.3rem;
+            align-items: start;
+            padding: 1.8rem 0;
+            border-top: 1px solid var(--bdr);
         }
-        .fcard::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .frow-icon {
+            width: 52px; height: 52px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.45rem;
+            border: 1px solid var(--bdrH);
+            border-radius: 50%;
+            background: rgba(201,162,39,0.06);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .fcard:hover {
-            border-color: var(--bdrH);
-            transform: translateY(-4px);
-            box-shadow: 0 14px 44px var(--sh);
+        .frow:hover .frow-icon {
+            box-shadow: 0 0 20px var(--gold-glow);
+            transform: scale(1.08);
         }
-        .fcard:hover::after { opacity: 1; }
-        .fcard-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-        .fcard-title {
+        .frow-title {
             font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             letter-spacing: 0.05em;
             color: var(--t1);
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.5rem;
+            transition: color var(--tr);
         }
-        .fcard-desc {
-            font-size: 0.85rem;
+        .frow:hover .frow-title { color: var(--gold); }
+        .frow-desc {
+            font-size: 0.87rem;
             color: var(--t2);
             line-height: 1.75;
         }
@@ -521,11 +491,12 @@
         }
         .discord-grid {
             display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 3.5rem;
+            grid-template-columns: minmax(0, 460px) minmax(0, 440px);
+            justify-content: center;
+            gap: 4rem;
             align-items: center;
         }
-        @media (max-width: 780px) { .discord-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .discord-grid { grid-template-columns: minmax(0, 460px); gap: 2.5rem; } }
 
         .discord-text h2 {
             font-family: 'Cinzel', serif;
@@ -547,6 +518,58 @@
             border: 1px solid var(--bdr);
             box-shadow: 0 8px 32px var(--sh);
             flex-shrink: 0;
+        }
+
+        /* Discord invite card */
+        .dinv {
+            display: block;
+            width: 100%;
+            background: var(--bgC);
+            border: 1px solid var(--bdr);
+            border-radius: 12px;
+            padding: 1.75rem;
+            box-shadow: 0 8px 32px var(--sh);
+            backdrop-filter: blur(10px);
+            color: inherit; text-decoration: none;
+            transition: border-color var(--tr), transform 0.2s ease;
+        }
+        .dinv:hover { border-color: var(--bdrH); transform: translateY(-2px); }
+        .dinv-kicker {
+            font-family: 'Cinzel', serif;
+            font-size: 0.6rem; font-weight: 600;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--t3);
+            margin-bottom: 1rem;
+        }
+        .dinv-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.3rem; }
+        .dinv-icon { width: 76px; height: 76px; border-radius: 20px; flex-shrink: 0; }
+        .dinv-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.45rem; font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+        }
+        .dinv-stats { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.8rem; color: var(--t2); }
+        .dinv-stats b { color: var(--t1); font-weight: 600; }
+        .dinv-dot {
+            display: inline-block;
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--t3);
+            margin-right: 0.4rem; vertical-align: 0.05em;
+        }
+        .dinv-dot.on { background: var(--green-on); }
+        .dinv-btn {
+            display: flex;
+            align-items: center; justify-content: center;
+            gap: 0.7rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: #0d0d0f;
+            background: var(--gold);
+            border-radius: 6px;
+            padding: 0.7rem 1rem;
         }
 
         /* ========================= STORE =========================== */
@@ -624,42 +647,21 @@
         }
         .footer-copy { font-size: 0.72rem; color: var(--t3); }
 
-        /* ========================== TOAST ========================== */
-        .toast {
-            position: fixed;
-            bottom: 2rem; left: 50%;
-            transform: translateX(-50%) translateY(1.5rem);
-            background: var(--bg2);
-            border: 1px solid var(--bdrH);
-            color: var(--gold);
-            font-family: 'Cinzel', serif;
-            font-size: 0.72rem;
-            letter-spacing: 0.12em;
-            padding: 0.55rem 1.6rem;
-            border-radius: 6px;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.28s ease;
-            z-index: 9999;
-        }
-        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
 
 <canvas id="stars"></canvas>
-<div class="toast" id="toast">IP Copied!</div>
 
 <!-- ========================= NAV ========================== -->
 <nav>
-    <a href="#" class="nav-logo">
-        <img src="logo.png" alt="Aranarth" style="height:28px;width:28px;object-fit:contain;">
-        ARANARTH
+    <a href="#" class="nav-logo" aria-label="Aranarth home" title="Home">
+        <img src="logo.png" alt="Aranarth">
     </a>
     <ul class="nav-links">
         <li><a href="#features">The World</a></li>
         <li><a href="#discord">Join Us</a></li>
-        <li><a href="store.html">Store</a></li>
+        <li><a href="https://aranarth.craftingstore.net">Store</a></li>
         <li><a href="https://map.aranarth.net" target="_blank">Map</a></li>
     </ul>
     <div class="nav-right">
@@ -668,8 +670,6 @@
             <button class="tbtn active" data-mode="auto" title="Auto (OS)">&#9680;</button>
             <button class="tbtn" data-mode="dark" title="Dark mode">&#9790;</button>
         </div>
-        <!-- CONFIG: Replace with your store URL -->
-        <a href="store.html" class="nav-store-btn">Store</a>
     </div>
 </nav>
 
@@ -709,20 +709,14 @@
     </div>
 
     <h1 class="hero-title">ARANARTH</h1>
-    <p class="hero-sub">A Fantasy Minecraft Server</p>
-    <p class="hero-tagline">Bending, dominions, quests, and a world that's been built from scratch. Java Edition 1.21.</p>
+    <!--p class="hero-sub">play.aranarth.net</p-->
+    <p class="hero-sub">play.aranarth.net &nbsp;&middot;&nbsp; Java Edition 26.3</p>
+    <!--p class="hero-tagline">Minecraft &nbsp;&nbsp;|&nbsp;&nbsp; Bending &nbsp;&nbsp;|&nbsp;&nbsp; PvP &nbsp;&nbsp;|&nbsp;&nbsp; Custom</p-->
 
     <div class="hero-actions">
-        <a href="#features" class="btn-gold">See What's Here</a>
+        <a href="#features" class="btn-gold">Our Features</a>
         <!-- CONFIG: Replace with your store URL -->
-        <a href="store.html" class="btn-outline">Visit the Store</a>
-    </div>
-
-    <!-- CONFIG: Replace with your server IP -->
-    <div class="ip-chip" onclick="copyIP()" title="Click to copy server IP">
-        <span>&#9654;</span>
-        <span id="server-ip">play.aranarth.net</span>
-        <span class="ip-chip-hint">click to copy</span>
+        <a href="https://aranarth.craftingstore.net" class="btn-outline">Store</a>
     </div>
 
     <div class="scroll-cue">
@@ -732,6 +726,7 @@
 </section>
 
 <!-- ==================== STATUS BAR ======================= -->
+<!-- Removed: player stats moved to the hero badge, version moved to the hero subtitle.
 <div class="status-bar">
     <div class="c">
         <div class="status-grid">
@@ -748,17 +743,13 @@
                 <div class="scard-lbl">Max Slots</div>
             </div>
             <div class="scard">
-                <div class="scard-val">Java</div>
-                <div class="scard-lbl">26.3 · Java Edition</div>
-            </div>
-            <div class="scard">
-                <!-- CONFIG: Replace with your server IP -->
-                <div class="scard-val" style="font-size:0.95rem;padding-top:0.3rem;">play.aranarth.net</div>
-                <div class="scard-lbl">Server Address</div>
+                <div class="scard-val">26.3</div>
+                <div class="scard-lbl">Java Edition</div>
             </div>
         </div>
     </div>
 </div>
+-->
 
 <!-- ======================= FEATURES ====================== -->
 <section id="features">
@@ -768,6 +759,7 @@
             <h2 class="sh-title">What's on the Server</h2>
             <div class="sh-rule"></div>
         </div>
+        <!-- Previous card grid, replaced by the two-column list below
         <div class="feat-grid">
             <div class="fcard">
                 <span class="fcard-icon">&#127754;</span>
@@ -800,6 +792,79 @@
                 <p class="fcard-desc">Progress through ranks by completing daily and weekly quests. Higher ranks unlock new abilities, areas, and server features.</p>
             </div>
         </div>
+        -->
+        <div class="feat-list">
+            <div class="frow">
+                <span class="frow-icon">&#9775;</span>
+                <div>
+                    <div class="frow-title">Bending</div>
+                    <p class="frow-desc">Master Water, Earth, Fire, or Air and unlock sub-elements like lightning, metal, lava, blood, and plantbending as you progress. Many abilities are custom-built for Aranarth, and two bending arenas are always open.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#10024;</span>
+                <div>
+                    <div class="frow-title">The Avatar</div>
+                    <p class="frow-desc">One player at a time is chosen as the Avatar, able to bend every element and wield unique abilities like Light of Raava and Past Lives. When the Avatar falls, the cycle moves on.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#128737;</span>
+                <div>
+                    <div class="frow-title">Aranarthium</div>
+                    <p class="frow-desc">End-game armour forged from a custom ore. Seven sets - Aquatic, Ardent, Dwarven, Elven, Fae, Scorched, and Soulbound - each with their own powers, from double jumps and bonus harvests to strength in the Nether.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#127993;</span>
+                <div>
+                    <div class="frow-title">Quivers, Arrows &amp; Potions</div>
+                    <p class="frow-desc">Craft eleven custom arrows at the fletching table - explosive, lightning, gust, rooting, and more - and carry them in a quiver that refills your hand as you fire. Potions get their own auto-refilling pouch, plus a book of custom brews to discover.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#128302;</span>
+                <div>
+                    <div class="frow-title">Incantations</div>
+                    <p class="frow-desc">Bind one incantation to a weapon or tool: Lifesteal, Beheading, Magnetism, Plentiful, Preservation, or Resilience.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#9876;</span>
+                <div>
+                    <div class="frow-title">Dominions &amp; Outposts</div>
+                    <p class="frow-desc">Claim land with your dominion, expand through outposts, and summon defenders - from creepers to elder guardians - to hold your borders against other players.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#127757;</span>
+                <div>
+                    <div class="frow-title">Weather, World Events, &amp; Calendar</div>
+                    <p class="frow-desc">Aranarth runs on its own fourteen-month calendar with custom weather. Seasons bring snow and thaw, and rare world events like Solaris, Lunaris, and Seiko's Comet change how the world plays.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#128176;</span>
+                <div>
+                    <div class="frow-title">Economy &amp; Jobs</div>
+                    <p class="frow-desc">Run a shop, take on one of eight Jobs, and trade on a market whose prices move with supply and demand.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#128220;</span>
+                <div>
+                    <div class="frow-title">Ranks &amp; Quests</div>
+                    <p class="frow-desc">Climb the ranks through daily and weekly quests, keep up a login streak, and open crates for rare rewards. Higher ranks unlock new features across the server.</p>
+                </div>
+            </div>
+            <div class="frow">
+                <span class="frow-icon">&#127793;</span>
+                <div>
+                    <div class="frow-title">Quality of Life</div>
+                    <p class="frow-desc">Auto-compressing items, pickup blacklists, homepads for fast travel, and a reaper who'll sell back your last death's inventory - small touches that make survival smoother.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -808,19 +873,11 @@
     <div class="c">
         <div class="discord-grid">
             <div class="discord-text">
-                <div class="sh-label">Join Us</div>
                 <h2>Join the Discord</h2>
-                <p>The Discord is where most server activity happens outside of the game - announcements, updates, support, and general chat. Come say hi.</p>
-                <!-- CONFIG: Replace with your Discord invite -->
-                <a href="https://discord.gg/YOUR_INVITE" class="btn-gold" target="_blank">
-                    <svg width="18" height="14" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true">
-                        <path d="M13.545 1.044A13.23 13.23 0 0 0 10.27 0c-.142.252-.308.591-.422.859a12.23 12.23 0 0 0-3.695 0C6.04.591 5.87.252 5.727 0A13.192 13.192 0 0 0 2.45 1.047C.352 4.14-.216 7.155.068 10.128A13.312 13.312 0 0 0 4.12 12c.323-.437.61-.9.857-1.388a8.674 8.674 0 0 1-1.35-.65c.114-.083.224-.169.33-.258a9.494 9.494 0 0 0 8.088 0c.107.09.218.176.33.258-.432.256-.888.476-1.353.651.247.489.534.952.858 1.387a13.29 13.29 0 0 0 4.054-1.872c.333-3.432-.568-6.418-2.388-9.084ZM5.34 8.293c-.796 0-1.445-.73-1.445-1.626 0-.896.636-1.628 1.445-1.628.81 0 1.459.732 1.445 1.628.001.897-.635 1.626-1.445 1.626Zm5.32 0c-.797 0-1.446-.73-1.446-1.626 0-.896.636-1.628 1.446-1.628.81 0 1.458.732 1.444 1.628 0 .897-.634 1.626-1.444 1.626Z"/>
-                    </svg>
-                    Join Discord
-                </a>
+                <p>The Discord is where most server activity happens outside of the game - announcements, updates, support, and general chat.</p>
             </div>
-            <!-- CONFIG: Replace YOUR_DISCORD_SERVER_ID with your actual server ID -->
-            <div class="discord-widget-wrap">
+            <!-- Original member-list widget, replaced by the invite card below -->
+            <!--div class="discord-widget-wrap">
                 <iframe
                     src="https://discord.com/widget?id=664319732446396416&theme=dark"
                     width="330" height="480"
@@ -829,23 +886,44 @@
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
                     title="Aranarth Discord Widget"
                 ></iframe>
-            </div>
+            </div-->
+
+            <!-- Invite card, filled with live data from Discord's invite API -->
+            <a class="dinv" id="dinv" href="https://discord.gg/HyWdYrSzNC" target="_blank" rel="noopener">
+                <div class="dinv-row">
+                    <img class="dinv-icon" id="dinv-icon" src="https://cdn.discordapp.com/icons/664319732446396416/7fe608b9d1ef7cff7d7c28145efb8983.png?size=128" alt="" width="76" height="76">
+                    <div>
+                        <div class="dinv-name" id="dinv-name">Aranarth</div>
+                        <div class="dinv-stats">
+                            <span><i class="dinv-dot on"></i><b id="dinv-online">-</b> Online</span>
+                            <span><i class="dinv-dot"></i><b id="dinv-members">-</b> Members</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="dinv-btn">
+                    <svg width="24" height="18" viewBox="0 0 16 12" fill="currentColor" aria-hidden="true">
+                        <path d="M13.545 1.044A13.23 13.23 0 0 0 10.27 0c-.142.252-.308.591-.422.859a12.23 12.23 0 0 0-3.695 0C6.04.591 5.87.252 5.727 0A13.192 13.192 0 0 0 2.45 1.047C.352 4.14-.216 7.155.068 10.128A13.312 13.312 0 0 0 4.12 12c.323-.437.61-.9.857-1.388a8.674 8.674 0 0 1-1.35-.65c.114-.083.224-.169.33-.258a9.494 9.494 0 0 0 8.088 0c.107.09.218.176.33.258-.432.256-.888.476-1.353.651.247.489.534.952.858 1.387a13.29 13.29 0 0 0 4.054-1.872c.333-3.432-.568-6.418-2.388-9.084ZM5.34 8.293c-.796 0-1.445-.73-1.445-1.626 0-.896.636-1.628 1.445-1.628.81 0 1.459.732 1.445 1.628.001.897-.635 1.626-1.445 1.626Zm5.32 0c-.797 0-1.446-.73-1.446-1.626 0-.896.636-1.628 1.446-1.628.81 0 1.458.732 1.444 1.628 0 .897-.634 1.626-1.444 1.626Z"/>
+                    </svg>
+                    Join Our Discord</span>
+            </a>
         </div>
+
     </div>
 </section>
 
-<!-- ======================== STORE ========================= -->
+<!-- ======================== STORE =========================
+     Removed: the store is linked from the nav, hero, and footer.
 <section id="store">
     <div class="c">
         <div class="store-banner">
             <div class="sh-label">Store</div>
             <h2>Aranarth Store</h2>
             <p>Ranks, cosmetics, and a few extras. Purchases help keep the server running.</p>
-            <!-- CONFIG: Replace with your store URL -->
-            <a href="store.html" class="btn-gold">Browse the Store &rarr;</a>
+            <a href="https://aranarth.craftingstore.net" class="btn-gold">Browse the Store &rarr;</a>
         </div>
     </div>
 </section>
+-->
 
 <!-- ====================== FOOTER ========================= -->
 <footer>
@@ -857,7 +935,7 @@
             <div class="footer-links">
                 <a href="#features">The World</a>
                 <a href="#discord">Discord</a>
-                <a href="store.html">Store</a>
+                <a href="https://aranarth.craftingstore.net">Store</a>
                 <!-- CONFIG: Add your actual links below -->
                 <a href="#">Rules</a>
                 <a href="#">Wiki</a>
@@ -878,8 +956,9 @@
     const CFG = {
         serverIP: 'play.aranarth.net',
         storeURL: 'https://aranarth.craftingstore.net',
-        discordInvite: 'https://discord.gg/YOUR_INVITE',
-        discordID: 'YOUR_DISCORD_SERVER_ID',
+        discordInvite: 'https://discord.gg/HyWdYrSzNC',
+        discordInviteCode: 'HyWdYrSzNC',
+        discordID: '664319732446396416',
     };
 
     // -------------------- Theme Management ----------------------
@@ -907,33 +986,59 @@
         let stars = [];
         let raf;
 
+        let w, h;
         function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            // Render at device resolution so stars stay crisp on high-DPI screens
+            const dpr = window.devicePixelRatio || 1;
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             init();
         }
 
         function init() {
             stars = Array.from({ length: 200 }, () => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 1.1 + 0.2,
-                base: Math.random() * 0.55 + 0.1,
-                twinkle: Math.random() * 0.02 + 0.004,
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 1.4 + 0.5,
+                base: Math.random() * 0.5 + 0.3,
+                twinkle: Math.random() * 0.035 + 0.01,
                 offset: Math.random() * Math.PI * 2,
             }));
         }
 
         let frame = 0;
         function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, w, h);
             frame++;
             stars.forEach(s => {
-                const op = s.base + Math.sin(frame * s.twinkle + s.offset) * 0.14;
+                const t = Math.sin(frame * s.twinkle + s.offset);
+                const op = Math.max(0.05, Math.min(1, s.base + t * 0.35));
+                const r = s.r * (1 + t * 0.25);
+                // Soft halo around the larger stars
+                if (s.r > 1.3) {
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, r * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(232,224,208,${op * 0.1})`;
+                    ctx.fill();
+                }
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(232,224,208,${Math.max(0, Math.min(1, op))})`;
+                ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(232,224,208,${op})`;
                 ctx.fill();
+                // Brief cross-shaped glint as the larger stars peak
+                if (s.r > 1.3 && t > 0.75) {
+                    const g = (t - 0.75) / 0.25;
+                    const len = r * 5 * g;
+                    ctx.strokeStyle = `rgba(232,224,208,${0.55 * g})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(s.x - len, s.y); ctx.lineTo(s.x + len, s.y);
+                    ctx.moveTo(s.x, s.y - len); ctx.lineTo(s.x, s.y + len);
+                    ctx.stroke();
+                }
             });
             raf = requestAnimationFrame(draw);
         }
@@ -949,22 +1054,22 @@
             const res = await fetch('https://api.mcsrvstat.us/3/' + CFG.serverIP);
             if (!res.ok) return;
             const d = await res.json();
-            const dot = document.getElementById('sdot');
-            const lbl = document.getElementById('slabel');
-            const online = document.getElementById('s-online');
-            const slots = document.getElementById('s-slots');
+            // const dot = document.getElementById('sdot');
+            // const lbl = document.getElementById('slabel');
+            // const online = document.getElementById('s-online');
+            // const slots = document.getElementById('s-slots');
             const hero = document.getElementById('hero-status');
 
             if (d.online) {
-                lbl.textContent = 'Online';
-                online.textContent = d.players?.online ?? '0';
-                slots.textContent = d.players?.max ?? '-';
+                // lbl.textContent = 'Online';
+                // online.textContent = d.players?.online ?? '0';
+                // slots.textContent = d.players?.max ?? '-';
                 hero.textContent = (d.players?.online ?? 0) + ' players online';
             } else {
-                dot.classList.add('off');
-                lbl.textContent = 'Offline';
-                online.textContent = '0';
-                slots.textContent = '-';
+                // dot.classList.add('off');
+                // lbl.textContent = 'Offline';
+                // online.textContent = '0';
+                // slots.textContent = '-';
                 hero.textContent = 'Server currently offline';
             }
         } catch (_) {
@@ -972,14 +1077,22 @@
         }
     })();
 
-    // -------------------- Copy IP --------------------------------
-    function copyIP() {
-        navigator.clipboard.writeText(CFG.serverIP).then(() => {
-            const t = document.getElementById('toast');
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2200);
-        });
-    }
+    // -------------------- Discord Invite Card -------------------
+    (async function () {
+        try {
+            const res = await fetch('https://discord.com/api/v10/invites/' + CFG.discordInviteCode + '?with_counts=true');
+            if (!res.ok) return;
+            const d = await res.json();
+            const g = d.guild;
+            if (g?.icon) {
+                const ext = g.icon.startsWith('a_') ? 'gif' : 'png';
+                document.getElementById('dinv-icon').src = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.${ext}?size=128`;
+            }
+            if (g?.name) document.getElementById('dinv-name').textContent = g.name;
+            document.getElementById('dinv-online').textContent = (d.approximate_presence_count ?? 0).toLocaleString();
+            document.getElementById('dinv-members').textContent = (d.approximate_member_count ?? 0).toLocaleString();
+        } catch (_) {}
+    })();
 </script>
 </body>
 </html>
